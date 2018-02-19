@@ -17,7 +17,7 @@ namespace TechPortal.Data.Domain.Helper
             db = context;
         }
 
-       
+
 
         #region Gets
         public List<JobTitle> GetJobTitles()
@@ -49,7 +49,7 @@ namespace TechPortal.Data.Domain.Helper
         #region Inserts
         public bool InsertJobTitle(JobTitle j)
         {
-           db.JobTitle.Add(j);
+            db.JobTitle.Add(j);
             return db.SaveChanges() > 0;
         }
 
@@ -113,7 +113,9 @@ namespace TechPortal.Data.Domain.Helper
         #region Deletes
         public bool DeleteJobTitle(JobTitle j)
         {
-            db.JobTitle.Remove(j);
+            if (j.IsActive != false)
+                db.Entry(j).CurrentValues.SetValues(j.IsActive = false);
+
             return db.SaveChanges() > 0;
         }
 
