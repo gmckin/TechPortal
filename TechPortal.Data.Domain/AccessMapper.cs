@@ -63,6 +63,8 @@ namespace TechPortal.Data.Domain
             }
         }
 
+       
+
         /// <summary>
         ///  map the dao to the entity
         /// </summary>
@@ -306,11 +308,15 @@ namespace TechPortal.Data.Domain
                 return new TechDAO();
             }
         }
+        internal Tech MapToEntity(Tech t)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
-        ///  map the dao to the entity
+        /// 
         /// </summary>
-        /// <param name="ssdao"></param>
+        /// <param name="tdao"></param>
         /// <returns></returns>
         public Tech MapToEntity(TechDAO tdao)
         {
@@ -325,7 +331,7 @@ namespace TechPortal.Data.Domain
                 //get original object from db
                 if (!string.IsNullOrWhiteSpace(tdao.Name))
                 {
-                    fromDB = db.Tech.Where(m => m.Email.Equals(tdao.Email)).FirstOrDefault();
+                    fromDB = db.Tech.FirstOrDefault(m => m.Email.Equals(tdao.Email));
 
                 }
                 //if db object exist then use existing object and map properties sent from dao

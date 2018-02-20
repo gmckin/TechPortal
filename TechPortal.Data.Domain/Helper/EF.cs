@@ -17,10 +17,13 @@ namespace TechPortal.Data.Domain.Helper
             db = context;
         }
 
-
-
         #region Gets
         public List<JobTitle> GetJobTitles()
+        {
+            return db.JobTitle.ToList();
+        }
+
+        public List<JobTitle> GetInactiveJobTitle()
         {
             return db.JobTitle.ToList();
         }
@@ -29,8 +32,16 @@ namespace TechPortal.Data.Domain.Helper
         {
             return db.Location.ToList();
         }
+        public List<Location> GetLocation()
+        {
+            return db.Location.ToList();
+        }
 
         public List<ShiftStatus> GetStatuss()
+        {
+            return db.ShiftStatus.ToList();
+        }
+        public List<ShiftStatus> GetStatus()
         {
             return db.ShiftStatus.ToList();
         }
@@ -39,12 +50,62 @@ namespace TechPortal.Data.Domain.Helper
         {
             return db.TechRole.ToList();
         }
+        public List<TechRole> GetTechRole()
+        {
+            return db.TechRole.ToList();
+        }
 
         public List<Tech> GetTechs()
         {
             return db.Tech.ToList();
         }
+        public List<Tech> GetTech()
+        {
+            return db.Tech.ToList();
+        }
+
+        public JobTitle GetJobTitle(string name)
+        {
+            var temp = db.JobTitle.FirstOrDefault(x => x.JobTitleName == name);
+
+            return temp ;
+        }
         #endregion
+
+        #region Re-Activations
+
+        public bool ReActivateTech(Tech old, Tech tech)
+        {
+            db.Entry(old).CurrentValues.SetValues(tech);
+            return db.SaveChanges() > 0;
+        }
+
+        public bool ReActivateJobTitle(JobTitle old, JobTitle jobTitle)
+        {
+            db.Entry(old).CurrentValues.SetValues(jobTitle);
+            return db.SaveChanges() > 0;
+        }
+
+        public bool ReActivateLocation(Location old, Location loc)
+        {
+            db.Entry(old).CurrentValues.SetValues(loc);
+            return db.SaveChanges() > 0;
+        }
+
+        public bool ReActivateTechRole(TechRole old, TechRole tr)
+        {
+            db.Entry(old).CurrentValues.SetValues(tr);
+            return db.SaveChanges() > 0;
+        }
+
+        public bool ReActivateShiftStatus(ShiftStatus old, ShiftStatus ss)
+        {
+            db.Entry(old).CurrentValues.SetValues(ss);
+            return db.SaveChanges() > 0;
+        }
+
+        #endregion
+
 
         #region Inserts
         public bool InsertJobTitle(JobTitle j)
@@ -121,25 +182,29 @@ namespace TechPortal.Data.Domain.Helper
 
         public bool DeleteLocation(Location l)
         {
-            db.Location.Remove(l);
+            if (l.IsActive != false)
+                db.Entry(l).CurrentValues.SetValues(l.IsActive = false);
             return db.SaveChanges() > 0;
         }
 
         public bool DeleteStatus(ShiftStatus s)
         {
-            db.ShiftStatus.Remove(s);
+            if (s.IsActive != false)
+                db.Entry(s).CurrentValues.SetValues(s.IsActive = false);
             return db.SaveChanges() > 0;
         }
 
         public bool DeleteTech(Tech t)
         {
-            db.Tech.Remove(t);
+            if (t.IsActive != false)
+                db.Entry(t).CurrentValues.SetValues(t.IsActive = false);
             return db.SaveChanges() > 0;
         }
 
         public bool DeleteTechRole(TechRole tr)
         {
-            db.TechRole.Remove(tr);
+            if (tr.IsActive != false)
+                db.Entry(tr).CurrentValues.SetValues(tr.IsActive = false);
             return db.SaveChanges() > 0;
         }
         #endregion

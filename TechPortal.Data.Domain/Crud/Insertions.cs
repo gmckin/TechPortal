@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -99,10 +100,11 @@ namespace TechPortal.Data.Domain.Crud
             {
                 if (jt != null)
                 {
-                    //map it to EF object
-                    var itm = mapper.MapToEntity(jt);
-                    db.JobTitle.Add(itm);
-                    return db.SaveChanges() > 0;
+                        //map it to EF object
+                        var itm = mapper.MapToEntity(jt);
+                        // the actual call to insert
+                        db.JobTitle.Add(itm);
+                        return db.SaveChanges() > 0;
                 }
                 else
                 {

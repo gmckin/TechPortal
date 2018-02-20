@@ -9,16 +9,28 @@ namespace TechPortal.Data.Domain.Helper
     public interface IEF
     {
         List<ShiftStatus> GetStatuss();
+        List<ShiftStatus> GetStatus();
         List<Location> GetLocations();
+        List<Location> GetLocation();
         List<JobTitle> GetJobTitles();
         List<TechRole> GetTechRoles();
+        List<TechRole> GetTechRole();
         List<Tech> GetTechs();
+        List<Tech> GetTech();
+        List<JobTitle> GetInactiveJobTitle();
+        JobTitle GetJobTitle(string name);
 
         bool DeleteStatus(ShiftStatus s);
         bool DeleteLocation(Location l);
         bool DeleteJobTitle(JobTitle j);
         bool DeleteTechRole(TechRole tr);
         bool DeleteTech(Tech t);
+
+        bool ReActivateLocation(Location old, Location loc);
+        bool ReActivateTechRole(TechRole old, TechRole tr);
+        bool ReActivateShiftStatus(ShiftStatus old, ShiftStatus ss);
+        bool ReActivateTech(Tech old, Tech tech);
+        bool ReActivateJobTitle(JobTitle old, JobTitle jobTitle);
 
         bool InsertStatus(ShiftStatus s);
         bool InsertLocation(Location l);

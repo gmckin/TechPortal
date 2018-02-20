@@ -24,10 +24,16 @@ namespace TechPortal.Data.Domain.Crud
                 if (jtdao != null)
                 {
                     JobTitle jt = mapper.MapToEntity(jtdao);
-                    var toDelete = ef.GetJobTitles().FirstOrDefault((m => m.JobTitleID == jt.JobTitleID));                   
-                    return ef.DeleteJobTitle(toDelete);
+                    JobTitle x = db.JobTitle.FirstOrDefault(z => z.JobTitleName.Equals(jt.JobTitleName));
+                    if (x.IsActive)
+                    {
+                        var toDelete = ef.GetJobTitles().FirstOrDefault((m => m.JobTitleID == jt.JobTitleID));
+                        return ef.DeleteJobTitle(toDelete);
+                    }
+
+                    return true;
                 }
-                else
+                
                 {                    
                     return false;
                 }
@@ -52,10 +58,17 @@ namespace TechPortal.Data.Domain.Crud
                 if (ssdao != null)
                 {
                     ShiftStatus ss = mapper.MapToEntity(ssdao);
-                    var toDelete = ef.GetStatuss().FirstOrDefault((m => m.SSDescription == ss.SSDescription));
-                    return ef.DeleteStatus(toDelete);
+                    ShiftStatus x = db.ShiftStatus.FirstOrDefault(s => s.SSDescription.Equals(ss.SSDescription));
+
+                    if (x.IsActive)
+                    {
+                        var toDelete = ef.GetStatuss().FirstOrDefault((m => m.SSDescription == ss.SSDescription));
+                        return ef.DeleteStatus(toDelete);
+                    }
+
+                    return true;
                 }
-                else
+                
                 {
                     return false;
                 }
@@ -80,10 +93,16 @@ namespace TechPortal.Data.Domain.Crud
                 if (trdao != null)
                 {
                     TechRole tr = mapper.MapToEntity(trdao);
-                    var toDelete = ef.GetTechRoles().FirstOrDefault((m => m.TRName == tr.TRName));
-                    return ef.DeleteTechRole(toDelete);
+                    TechRole x = db.TechRole.FirstOrDefault(s => s.TRName.Equals(tr.TRName));
+
+                    if (x.IsActive)
+                    {
+                        var toDelete = ef.GetTechRoles().FirstOrDefault((m => m.TRName == tr.TRName));
+                        return ef.DeleteTechRole(toDelete);
+                    }
+                    return true;
                 }
-                else
+               
                 {
                     return false;
                 }
@@ -108,10 +127,16 @@ namespace TechPortal.Data.Domain.Crud
                 if (ldao != null)
                 {
                     Location l = mapper.MapToEntity(ldao);
-                    var toDelete = ef.GetLocations().FirstOrDefault((m => m.LocationName == l.LocationName));
-                    return ef.DeleteLocation(toDelete);
+                    Location x = db.Location.FirstOrDefault(s => s.LocationName.Equals(l.LocationName));
+
+                    if (x.IsActive)
+                    {
+                        var toDelete = ef.GetLocations().FirstOrDefault((m => m.LocationName == l.LocationName));
+                        return ef.DeleteLocation(toDelete);
+                    }
+                    return true;
                 }
-                else
+                
                 {
                     return false;
                 }
@@ -136,10 +161,16 @@ namespace TechPortal.Data.Domain.Crud
                 if (tdao != null)
                 {
                     Tech t = mapper.MapToEntity(tdao);
-                    var toDelete = ef.GetTechs().FirstOrDefault((m => m.TechID == t.TechID));
-                    return ef.DeleteTech(toDelete);
+                    Tech x = db.Tech.FirstOrDefault(s => s.Email.Equals(t.Email));
+
+                    if (x.IsActive)
+                    {
+                        var toDelete = ef.GetTechs().FirstOrDefault((m => m.TechID == t.TechID));
+                        return ef.DeleteTech(toDelete);
+                    }
+                    return true;
                 }
-                else
+                
                 {
                     return false;
                 }
