@@ -13,7 +13,7 @@ namespace TechPortal.Data.Domain.Crud.Tests
     public partial class AccessHelperTests
     {
 
-        //These are INETGRATION TESTS. DO NOT MISTAKE THESE FOR UNIT TESTS!!!
+        //These are INTEGRATION TESTS. DO NOT MISTAKE THESE FOR UNIT TESTS!!!
 
         [TestMethod()]
         public void InsertJobTitleTest()
@@ -25,6 +25,14 @@ namespace TechPortal.Data.Domain.Crud.Tests
             Assert.IsTrue(toInsert);
         }
 
-       
+        [TestMethod()]
+        public void InsertLocationTest()
+        {
+            AccessHelper ah = new AccessHelper();
+            var title = new LocationDAO() { LocationName = "Test Site Charlie", IsActive = true };
+            var toInsert = ah.InsertLocation(title);
+
+            Assert.IsTrue(toInsert);
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace TechPortal.Data.DomainTests.Crud
     public partial class AccessHelperTests
     {
 
-        //These are INETGRATION TESTS. DO NOT MISTAKE THESE FOR UNIT TESTS!!!
+        //These are INTEGRATION TESTS. DO NOT MISTAKE THESE FOR UNIT TESTS!!!
 
         [TestMethod()]
         public void ReActivateJobTitleTest()
